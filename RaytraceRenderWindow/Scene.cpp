@@ -67,3 +67,13 @@ void Scene::updateScene()
 
 
 }
+
+ Matrix4 Scene::getModelView()
+ {
+    Matrix4 reusult;
+    reusult.SetIdentity();
+    //grab all the necessary matrices to build your model view
+
+  1//return model view matrix
+    return reusult;
+ }

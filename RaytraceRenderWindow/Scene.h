@@ -19,6 +19,8 @@ public:
     void updateScene();
 
     Scene();
+
+    Matrix4 getModelView();
 };
 
 #endif // SCENE_H
