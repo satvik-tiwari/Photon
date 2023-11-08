@@ -93,6 +93,7 @@ void Scene::updateScene()
 
     viewMatrix = camModelMatrix.transpose();
 
+
     result = viewMatrix * modelMatrix; // computed model view matrix
 
   //return model view matrix

@@ -155,6 +155,9 @@ void RaytraceRenderWidget::RaytraceThread()
             /*int k = 100000;
             while(k-- > 0);*/
 
+            //casting ray
+            Ray ray = calculateRay(i, j, !renderParameters->orthoProjection);
+
             //Gamma correction...
 
             float gamma = 2.2f;
@@ -188,8 +191,9 @@ Ray RaytraceRenderWidget::calculateRay(int pixelx, int pixely, bool perspective)
      z = -1; //since camera is facing -z
 
     Cartesian3 direction;
-    Cartesian3 position;
+    Cartesian3 position; //camera postion
 
+    position = Cartesian3(0,0,0);
 
     //pixels are in device coordinate system
     int i_DCS = pixelx;
@@ -215,14 +219,15 @@ Ray RaytraceRenderWidget::calculateRay(int pixelx, int pixely, bool perspective)
 
     if(perspective)
     {
-      direction = Cartesian3(x, y, z);
+      direction = Cartesian3(x, y, z); //since cam is at 0 direction is (direction - 0,0,0) = direction
       direction.unit();
     }
 
     else
     {
       direction = Cartesian3(0, 0, z);
-      position = Cartesian3(x, y, 0);
+      direction.unit();
+     // position = Cartesian3(x, y, 0);
     }
 
     Ray ray(position, direction);
