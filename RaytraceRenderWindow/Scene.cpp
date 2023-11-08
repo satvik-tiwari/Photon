@@ -78,10 +78,23 @@ void Scene::updateScene()
     result.SetIdentity();
     //grab all the necessary matrices to build your model view
     //Homogeneous4 pos = Homogeneous4();
-    result = rp->rotationMatrix;
-    Cartesian3 pos = Cartesian3(rp->xTranslate, rp->yTranslate, rp->zTranslate);
 
-    result.SetTranslation(pos);
+    Matrix4 modelMatrix;
+    modelMatrix.SetIdentity();
+    modelMatrix = rp->rotationMatrix;
+    Cartesian3 pos = Cartesian3(rp->xTranslate, rp->yTranslate, rp->zTranslate);
+    modelMatrix.SetTranslation(pos);
+
+    Matrix4 viewMatrix;
+    Matrix4 camModelMatrix;
+    camModelMatrix.SetIdentity();
+    Cartesian3 camPos(0, 0, 0);
+    camModelMatrix.SetTranslation(camPos);
+
+    viewMatrix = camModelMatrix.transpose();
+
+    result = viewMatrix * modelMatrix; // computed model view matrix
+
   //return model view matrix
     return result;
  }
