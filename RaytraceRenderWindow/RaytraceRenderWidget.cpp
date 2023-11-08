@@ -178,4 +178,42 @@ void RaytraceRenderWidget::RaytraceThread()
 void RaytraceRenderWidget::forceRepaint()
 {
     update();
- }
+}
+
+Ray RaytraceRenderWidget::calculateRay(int pixelx, int pixely, bool perspective)
+{
+    //given a pixel positon, cast a ray towards the scene
+
+    float x, y;
+
+    //pixels are in device coordinate system
+    int i_DCS = pixelx;
+    int j_DCS = pixely;
+
+    //converting pixels from device coordinate system to
+    //normailze device coordinate system
+    float i_NDCS = (i_DCS/width() - 0.5f) * 2;
+    float j_NDCS = (j_DCS/height() - 0.5f) * 2;
+
+    float aspectRatio = width()/height();
+
+    if(aspectRatio > 1)
+    {
+        x = i_NDCS * aspectRatio;
+        y = j_NDCS;
+    }
+
+    else {
+        x = i_NDCS;
+        y = j_NDCS / aspectRatio;
+    }
+    if(perspective)
+    {
+
+    }
+
+    else
+    {
+
+    }
+}
