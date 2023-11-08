@@ -37,11 +37,14 @@ RaytraceRenderWidget::RaytraceRenderWidget
     texturedObjects(newTexturedObject),
     renderParameters(newRenderParameters)
     { // constructor
+
+        scene = new Scene(newTexturedObject, renderParameters);
+
         QTimer *timer =  new QTimer(this);
+
 
         connect(timer, &QTimer::timeout, this, &RaytraceRenderWidget::forceRepaint);
         timer->start(30);
-
     } // constructor
 
 
@@ -130,6 +133,7 @@ void RaytraceRenderWidget::paintGL()
 
 void RaytraceRenderWidget::Raytrace()
 {
+   scene->updateScene();
    raytracingThread = std::thread(&RaytraceRenderWidget::RaytraceThread, this);
    raytracingThread.detach();
 

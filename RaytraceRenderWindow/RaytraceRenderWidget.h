@@ -32,6 +32,8 @@
 
 #include <thread>
 
+#include <Scene.h>
+
 // class for a render widget with arcball linked to an external arcball widget
 class RaytraceRenderWidget : public QOpenGLWidget										
 	{ // class RaytraceRenderWidget
@@ -48,6 +50,8 @@ class RaytraceRenderWidget : public QOpenGLWidget
 
     std::thread raytracingThread;
 
+    Scene *scene;
+
 
 	public:
 	// constructor
@@ -58,7 +62,7 @@ class RaytraceRenderWidget : public QOpenGLWidget
 			// the render parameters to use
 			RenderParameters 	*newRenderParameters,
 			// parent widget in visual hierarchy
-			QWidget 			*parent
+            QWidget 			*parent
 			);
 	
 	// destructor

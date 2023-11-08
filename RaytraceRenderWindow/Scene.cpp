@@ -35,7 +35,11 @@ void Scene::updateScene()
                     Homogeneous4 v = Homogeneous4(obj.vertices[obj.faceVertices [face][faceVertex]].x,
                                                    obj.vertices[obj.faceVertices [face][faceVertex]].y,
                                                    obj.vertices[obj.faceVertices [face][faceVertex]].z);
-                    t.verts[vertex] = v;
+
+                    //apply model view here before adding vertex to triangle
+                    Homogeneous4 v_ModelView = getModelView() * v;
+                    //v = v_ModelView;
+                    t.verts[vertex] = v_ModelView;
 
                     Homogeneous4 n = Homogeneous4(obj.normals[obj.faceNormals [face][faceVertex]].x,
                                                   obj.normals[obj.faceNormals [face][faceVertex]].y,
@@ -70,10 +74,14 @@ void Scene::updateScene()
 
  Matrix4 Scene::getModelView()
  {
-    Matrix4 reusult;
-    reusult.SetIdentity();
+    Matrix4 result;
+    result.SetIdentity();
     //grab all the necessary matrices to build your model view
+    //Homogeneous4 pos = Homogeneous4();
+    result = rp->rotationMatrix;
+    Cartesian3 pos = Cartesian3(rp->xTranslate, rp->yTranslate, rp->zTranslate);
 
-  1//return model view matrix
-    return reusult;
+    result.SetTranslation(pos);
+  //return model view matrix
+    return result;
  }
