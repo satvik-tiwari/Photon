@@ -78,32 +78,36 @@ float Triangle::intersect(Ray r)
 
     //convert to planar coordinate system
     Cartesian3 o_prime = pcs * (o - p);
-
     Cartesian3 p_prime = pcs * vertices[0];
     Cartesian3 q_prime = pcs * vertices[1];
     Cartesian3 r_prime = pcs * vertices[2];
 
-
-    //check if o_prime lies inside or outside the triangle
+    //calculate vectors along the edges of triangle, CW(clockwise) format
     Cartesian3 pq_prime = q_prime - p_prime;
     Cartesian3 qr_prime = r_prime - q_prime;
     Cartesian3 rp_prime = p_prime - r_prime;
 
+
+    //calculate normal
     Cartesian3 pq_prime_norm(-pq_prime.y, pq_prime.x, 0);
     Cartesian3 qr_prime_norm(-qr_prime.y, qr_prime.x, 0);
     Cartesian3 rp_prime_norm(-rp_prime.y, rp_prime.x, 0);
 
-    if(pq_prime_norm.dot(o_prime) > 0 &&
-            qr_prime_norm.dot(o_prime) &&
-            rp_prime_norm.dot(o_prime))
+    //using normal form vec n.p -c = 0 since point is on the line, c = 0
+    float r1 = pq_prime_norm.dot(o_prime);
+    float r2 = qr_prime_norm.dot(o_prime);
+    float r3 = rp_prime_norm.dot(o_prime);
+
+    //check if o_prime lies inside or outside the triangle
+    if(r1 > 0 && r2 > 0 && r3 > 0)
     {
-        //intersecting
+        //inside so, intersecting
          return t;
     }
 
     else {
         //not intersecting
-        return  0;
+        return -1.0f;
     }
 
 

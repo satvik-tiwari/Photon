@@ -105,22 +105,31 @@ void Scene::updateScene()
      Scene::CollisionInfo ci;
      ci.t = r.origin.x; //so that it compiles without warning
      ci.tri = triangles[0];
+
+     bool collision = false; //to check if collison happened
     //find the closest triangle and return the triangle with its 't' value as collision info
 
      //iterate over all triangles
-     float t = 0.0f;
+
      for(unsigned i = 0; i < triangles.size(); i++) // **see if u need to start from 1 instead of 0
      {
          Triangle tri = triangles[i];
-         t = tri.intersect(r);
+         float t = tri.intersect(r); //for every triangle check intersection
 
-         if(t < ci.t)
+         //check if the current intersection is closest, if so, store it
+         if(t > 0 && t < ci.t)
          {
+             collision = true;
              ci.t = t;
              ci.tri = tri;
          }
      }
 
+     //if not collided return negative number
+     if(!collision)
+         ci.t = -1.0f;
+
+    //return closest intersection
     return ci;
 
  }
