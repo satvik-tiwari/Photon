@@ -193,7 +193,7 @@ Ray RaytraceRenderWidget::calculateRay(int pixelx, int pixely, bool perspective)
     Cartesian3 direction;
     Cartesian3 position; //camera postion
 
-    position = Cartesian3(0,0,0);
+
 
     //pixels are in device coordinate system
     int i_DCS = pixelx;
@@ -221,12 +221,14 @@ Ray RaytraceRenderWidget::calculateRay(int pixelx, int pixely, bool perspective)
     {
       direction = Cartesian3(x, y, z); //since cam is at 0 direction is (direction - 0,0,0) = direction
       direction.unit();
+      position = Cartesian3(0,0,0);
     }
 
     else
     {
       direction = Cartesian3(0, 0, z);
       direction.unit();
+      position = Cartesian3(x, y, 0);
      // position = Cartesian3(x, y, 0);
     }
 

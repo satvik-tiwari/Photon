@@ -99,3 +99,23 @@ void Scene::updateScene()
   //return model view matrix
     return result;
  }
+
+ Scene::CollisionInfo Scene::closestTriangle(Ray r)
+ {
+     Scene::CollisionInfo ci;
+     ci.t = r.origin.x; //so that it compiles without warning
+
+    //find the closest triangle and return the triangle with its 't' value as collision info
+
+     //iterate over all triangles
+
+     for(int i = 0; i < triangles.size(); i++)
+     {
+         Triangle tri = triangles[i];
+
+     }
+
+
+
+    return ci;
+ }
