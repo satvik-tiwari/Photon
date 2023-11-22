@@ -204,6 +204,7 @@ Ray RaytraceRenderWidget::calculateRay(int pixelx, int pixely, bool perspective)
     float i_NDCS = (i_DCS/width() - 0.5f) * 2;
     float j_NDCS = (j_DCS/height() - 0.5f) * 2;
 
+    //calculate aspect ratio
     float aspectRatio = width()/height();
 
     if(aspectRatio > 1)
@@ -217,18 +218,22 @@ Ray RaytraceRenderWidget::calculateRay(int pixelx, int pixely, bool perspective)
         y = j_NDCS / aspectRatio;
     }
 
+    //for perspective projection
     if(perspective)
     {
-      direction = Cartesian3(x, y, z); //since cam is at 0 direction is (direction - 0,0,0) = direction
-      direction.unit();
       position = Cartesian3(0,0,0);
+      direction = Cartesian3(x, y, z) - position;
+      //since cam is at 0 direction is (direction - 0,0,0) = direction
+      direction.unit();
     }
 
+    //for orthographic
     else
     {
+      position = Cartesian3(x, y, 0);
+      //direction = Cartesian3(0, 0, z) - position;
       direction = Cartesian3(0, 0, z);
       direction.unit();
-      position = Cartesian3(x, y, 0);
      // position = Cartesian3(x, y, 0);
     }
 

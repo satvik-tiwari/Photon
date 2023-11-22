@@ -104,18 +104,23 @@ void Scene::updateScene()
  {
      Scene::CollisionInfo ci;
      ci.t = r.origin.x; //so that it compiles without warning
-
+     ci.tri = triangles[0];
     //find the closest triangle and return the triangle with its 't' value as collision info
 
      //iterate over all triangles
-
-     for(int i = 0; i < triangles.size(); i++)
+     float t = 0.0f;
+     for(unsigned i = 0; i < triangles.size(); i++) // **see if u need to start from 1 instead of 0
      {
          Triangle tri = triangles[i];
+         t = tri.intersect(r);
 
+         if(t < ci.t)
+         {
+             ci.t = t;
+             ci.tri = tri;
+         }
      }
 
-
-
     return ci;
+
  }
