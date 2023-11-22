@@ -35,7 +35,7 @@ float Triangle::intersect(Ray r)
     w = w.unit();
 
     Cartesian3 p = vertices[0];
-
+    // p,q,r are vertices[0],[1],[2]
     //origin is vertices[0] so that will be p and we have vecotors u,w,n as orthonormal bases
     //plane |-| = {p, vect.u, vect.w, vect.n}
     // p is origion of planar coordinate system
@@ -72,7 +72,12 @@ float Triangle::intersect(Ray r)
 
     float t = Sn/ln;
 
-    //Cartesian3 o = s + l * t;
+    Cartesian3 o = s + l * t;
+    Cartesian3 o_prime = pcs * (o - p);
+    Cartesian3 p_prime = pcs * vertices[0];
+    Cartesian3 q_prime = pcs * vertices[1];
+    Cartesian3 r_prime = pcs * vertices[2];
+
 
     return  t;
 }
