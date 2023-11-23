@@ -4,7 +4,7 @@
 #include "Homogeneous4.h"
 #include "Cartesian3.h"
 #include "Material.h"
-#include "ray.h"
+#include "Ray.h"
 #include "Matrix4.h"
 
 class Triangle

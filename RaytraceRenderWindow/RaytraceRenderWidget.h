@@ -32,9 +32,9 @@
 
 #include <thread>
 
-#include <Scene.h>
+#include "Scene.h"
 
-#include "ray.h"
+#include "Ray.h"
 
 // class for a render widget with arcball linked to an external arcball widget
 class RaytraceRenderWidget : public QOpenGLWidget										
@@ -76,6 +76,8 @@ class RaytraceRenderWidget : public QOpenGLWidget
 
     void RaytraceThread();
 
+    Ray calculateRay(int pixelx, int pixely, bool perspective);
+
     void forceRepaint();
 			
 	protected:
@@ -100,7 +102,7 @@ class RaytraceRenderWidget : public QOpenGLWidget
 	// note that Continue & End assume the button has already been set
 	void ContinueScaledDrag(float x, float y);
 	void EndScaledDrag(float x, float y);
-    Ray calculateRay(int pixelx, int pixely, bool perspective);
+
 
 
 	}; // class RaytraceRenderWidget

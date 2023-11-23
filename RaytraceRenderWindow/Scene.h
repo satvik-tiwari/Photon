@@ -5,7 +5,7 @@
 #include "RenderParameters.h"
 #include "Triangle.h"
 #include "Material.h"
-#include "ray.h"
+#include "Ray.h"
 
 
 

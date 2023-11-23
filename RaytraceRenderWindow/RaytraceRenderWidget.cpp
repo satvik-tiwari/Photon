@@ -156,7 +156,14 @@ void RaytraceRenderWidget::RaytraceThread()
             while(k-- > 0);*/
 
             //casting ray
-            Ray ray = calculateRay(i, j, !renderParameters->orthoProjection);
+            //sending if perspective proj true or false
+            Ray ray = calculateRay(i, j, !(renderParameters->orthoProjection));
+            Scene::CollisionInfo ci = scene->closestTriangle(ray);
+
+            if(ci.t > 0)
+            std::cout << "T : " << ci.t <<std::endl;
+
+
 
             //Gamma correction...
 
@@ -172,6 +179,15 @@ void RaytraceRenderWidget::RaytraceThread()
 
             //if( j < 2)
             //std::cout << "REd : " << color.x << " , " << "Green : " << color.y << std::endl;
+
+            if(ci.t > 0)
+            {
+                frameBuffer[j][i] = RGBAValue(255.0f, 255.0f, 255.0f, 255.0f);
+            }
+
+            else {
+                frameBuffer[j][i] = RGBAValue(0.0f, 0.0f, 0.0f, 0.0f);
+            }
         }
     }
 
@@ -192,7 +208,6 @@ Ray RaytraceRenderWidget::calculateRay(int pixelx, int pixely, bool perspective)
 
     Cartesian3 direction;
     Cartesian3 position; //camera postion
-
 
 
     //pixels are in device coordinate system
@@ -218,7 +233,7 @@ Ray RaytraceRenderWidget::calculateRay(int pixelx, int pixely, bool perspective)
         y = j_NDCS / aspectRatio;
     }
 
-    //for perspective projection
+     //for perspective projection
     if(perspective)
     {
       position = Cartesian3(0,0,0);
@@ -227,16 +242,17 @@ Ray RaytraceRenderWidget::calculateRay(int pixelx, int pixely, bool perspective)
       direction.unit();
     }
 
-    //for orthographic
+    //for orthographic projection
     else
     {
       position = Cartesian3(x, y, 0);
-      //direction = Cartesian3(0, 0, z) - position;
+      //direction = Cartesian3(0, 0, z) - position; WHY NOT???
       direction = Cartesian3(0, 0, z);
       direction.unit();
-     // position = Cartesian3(x, y, 0);
     }
 
     Ray ray(position, direction);
     return ray;
+
+
 }

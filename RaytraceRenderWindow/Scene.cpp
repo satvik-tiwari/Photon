@@ -129,6 +129,8 @@ void Scene::updateScene()
      if(!collision)
          ci.t = -1.0f;
 
+    // std::cout << "T : " << ci.t <<std::endl;
+
     //return closest intersection
     return ci;
 

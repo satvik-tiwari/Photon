@@ -110,5 +110,4 @@ float Triangle::intersect(Ray r)
         return -1.0f;
     }
 
-
 }
