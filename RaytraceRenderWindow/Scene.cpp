@@ -63,8 +63,10 @@ void Scene::updateScene()
                         t.shared_material = obj.material;
                     }
 
-                    triangles.push_back(t);
+                    //triangles.push_back(t);
                 }
+                triangles.push_back(t);
+                std::vector<Triangle> TRI = triangles;
             }
         }
     }
@@ -108,14 +110,15 @@ void Scene::updateScene()
 
      bool collision = false; //to check if collison happened
     //find the closest triangle and return the triangle with its 't' value as collision info
-
+     std::vector<Triangle> TRI = triangles;
      //iterate over all triangles
-
+     //std::cout<< "Triangles size : " << triangles.size() << std::endl;
      for(unsigned i = 0; i < triangles.size(); i++) // **see if u need to start from 1 instead of 0
      {
+
          Triangle tri = triangles[i];
          float t = tri.intersect(r); //for every triangle check intersection
-
+        // std::cout << t << std::endl;
          //check if the current intersection is closest, if so, store it
          if(t > 0 && t < ci.t)
          {
@@ -123,13 +126,14 @@ void Scene::updateScene()
              ci.t = t;
              ci.tri = tri;
          }
+         //std::cout << i;
      }
 
      //if not collided return negative number
      if(!collision)
          ci.t = -1.0f;
-
-    // std::cout << "T : " << ci.t <<std::endl;
+    if(ci.t > 0)
+     std::cout << "T : " << ci.t <<std::endl;
 
     //return closest intersection
     return ci;

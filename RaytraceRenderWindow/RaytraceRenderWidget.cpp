@@ -143,7 +143,7 @@ void RaytraceRenderWidget::RaytraceThread()
 {
     frameBuffer.clear(RGBAValue(0.0f, 0.0f, 0.0f, 1.0f));
 
-    #pragma omp parallel for schedule(dynamic)
+  //  #pragma omp parallel for schedule(dynamic)
 
     for(int j = 0; j < frameBuffer.height; j++)
     {
@@ -186,7 +186,7 @@ void RaytraceRenderWidget::RaytraceThread()
             }
 
             else {
-                frameBuffer[j][i] = RGBAValue(0.0f, 0.0f, 0.0f, 0.0f);
+                frameBuffer[j][i] = RGBAValue(0.0f, 0.0f, 0.0f, 255.0f);
             }
         }
     }
@@ -216,11 +216,14 @@ Ray RaytraceRenderWidget::calculateRay(int pixelx, int pixely, bool perspective)
 
     //converting pixels from device coordinate system to
     //normailze device coordinate system
-    float i_NDCS = (i_DCS/width() - 0.5f) * 2;
-    float j_NDCS = (j_DCS/height() - 0.5f) * 2;
+    float frm_width = frameBuffer.width;  //**i was doing width() and height(), getting errors, check later on this
+    float frm_height = frameBuffer.height;
+
+    float i_NDCS = ((i_DCS/frm_width) - 0.5f) * 2;
+    float j_NDCS = ((j_DCS/frm_height) - 0.5f) * 2;
 
     //calculate aspect ratio
-    float aspectRatio = width()/height();
+    float aspectRatio = frm_width/frm_height;
 
     if(aspectRatio > 1)
     {
@@ -239,7 +242,7 @@ Ray RaytraceRenderWidget::calculateRay(int pixelx, int pixely, bool perspective)
       position = Cartesian3(0,0,0);
       direction = Cartesian3(x, y, z) - position;
       //since cam is at 0 direction is (direction - 0,0,0) = direction
-      direction.unit();
+      direction = direction.unit();
     }
 
     //for orthographic projection
@@ -248,7 +251,7 @@ Ray RaytraceRenderWidget::calculateRay(int pixelx, int pixely, bool perspective)
       position = Cartesian3(x, y, 0);
       //direction = Cartesian3(0, 0, z) - position; WHY NOT???
       direction = Cartesian3(0, 0, z);
-      direction.unit();
+      //direction = direction.unit();
     }
 
     Ray ray(position, direction);

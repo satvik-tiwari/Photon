@@ -6,6 +6,7 @@
 #include "Material.h"
 #include "Ray.h"
 #include "Matrix4.h"
+#include <limits>
 
 class Triangle
 {

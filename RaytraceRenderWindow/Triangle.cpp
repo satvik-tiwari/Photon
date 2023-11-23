@@ -14,6 +14,10 @@ float Triangle::intersect(Ray r)
 
     Cartesian3 vertices[3];
 
+    Homogeneous4 vs[3];
+    vs[0] = verts[0];
+    vs[1] = verts[1];
+    vs[2] = verts[2];
     //converting homogenous coordinates to points
     for(int i = 0; i < 3; i++)
         vertices[i] = verts[i].Point(); //.vector or .point????
@@ -39,8 +43,8 @@ float Triangle::intersect(Ray r)
     //origin is vertices[0] so that will be p and we have vecotors u,w,n as orthonormal bases
     //plane |-| = {p, vect.u, vect.w, vect.n}
     // p is origion of planar coordinate system
-    //s is the origin of r
-    //l is the direction of r
+    //s is the origin of Ray r
+    //l is the direction of Ray r
 
     Cartesian3 s = r.origin;
     Cartesian3 l = r.direction; //is l right?? how do u reperesent line using r.direction??
@@ -98,11 +102,26 @@ float Triangle::intersect(Ray r)
     float r2 = qr_prime_norm.dot(o_prime - q_prime);
     float r3 = rp_prime_norm.dot(o_prime - r_prime);
 
+    //also add equality sign /
+      //check for point on the edge of triangle
     //check if o_prime lies inside or outside the triangle
-    if(r1 > 0 && r2 > 0 && r3 > 0)
+   /* abs(x - other.x) < std::numeric_limits<float>::epsilon() &&
+         abs(y - other.y) < std::numeric_limits<float>::epsilon() &&
+        abs(z - other.z) < std::numeric_limits<float>::epsilon()*/
+    /*if(r1 > 0 || (abs(r1) < std::numeric_limits<float>::epsilon())
+       && r2 > 0
+       && r3 > 0)*/
+    bool flag = false;
+    /*
+    if(r1 >= std::numeric_limits<float>::epsilon()
+            && r2 >= std::numeric_limits<float>::epsilon()
+            && r3 >= std::numeric_limits<float>::epsilon())*/
+
+    if(r1 > 0.0f && r2 > 0.0f && r3 > 0.0f)
     {
         //inside so, intersecting
-         return t;
+        flag = true;
+        return t;
     }
 
     else {
