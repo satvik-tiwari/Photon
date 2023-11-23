@@ -93,10 +93,10 @@ float Triangle::intersect(Ray r)
     Cartesian3 qr_prime_norm(-qr_prime.y, qr_prime.x, 0);
     Cartesian3 rp_prime_norm(-rp_prime.y, rp_prime.x, 0);
 
-    //using normal form vec n.p -c = 0 since point is on the line, c = 0
-    float r1 = pq_prime_norm.dot(o_prime);
-    float r2 = qr_prime_norm.dot(o_prime);
-    float r3 = rp_prime_norm.dot(o_prime);
+    //using normal form vec n.(p - c) = 0 since point is on the line, c = 0
+    float r1 = pq_prime_norm.dot(o_prime - p_prime);
+    float r2 = qr_prime_norm.dot(o_prime - q_prime);
+    float r3 = rp_prime_norm.dot(o_prime - r_prime);
 
     //check if o_prime lies inside or outside the triangle
     if(r1 > 0 && r2 > 0 && r3 > 0)

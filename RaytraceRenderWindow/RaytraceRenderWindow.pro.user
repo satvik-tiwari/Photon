@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.9.1, 2023-11-08T19:33:17. -->
+<!-- Written by QtCreator 4.9.1, 2023-11-23T15:01:28. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -308,7 +308,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">RaytraceRenderWindow</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/GameDev/UOL/Tutorials/Raytracing/Raytracing_Empty/Raytracing_Empty/RaytraceRenderWindow/RaytraceRenderWindow.pro</value>
-    <value type="QString" key="RunConfiguration.Arguments">..\objects\cornell_box.obj ..\objects\cornell_box.mtl</value>
+    <value type="QString" key="RunConfiguration.Arguments">..\objects\triangle_backplane.obj ..\objects\triangle_backplane.mtl</value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
